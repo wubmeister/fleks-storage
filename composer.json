@@ -1,0 +1,17 @@
+{
+    "name": "fleks/fleks-storage",
+    "license": "GPL",
+    "homepage": "https://github.com/wubmeister/fleks-storage",
+    "require": {
+        "php": "^7.0",
+        "psr/container": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7 || ^6.0.6"
+    },
+    "autoload": {
+        "psr-4" : {
+            "Fleks\\Storage" : "src"
+        }
+    }
+}
