@@ -15,8 +15,7 @@ use InvalidArgumentException;
 
 use Psr\Container\ContainerInterface;
 
-use Fleks\Util;
-use Fleks\Container;
+use Fleks\Util\Util;
 use Fleks\Db\Generic as GenericDb;
 use Fleks\Storage\StorageInterface;
 use Fleks\Db\Query\AbstractQuery;
@@ -81,12 +80,6 @@ class AbstractStorage implements StorageInterface
     protected $relatons = [];
 
     /**
-     * Flag to see if this this table has a 'site_id' column
-     * @var bool
-     */
-    protected $storeSiteId = false;
-
-    /**
      * Flag to see if this this table has a 'created' column
      * @var bool
      */
@@ -104,25 +97,14 @@ class AbstractStorage implements StorageInterface
      */
     protected $recycledStamp = null;
 
-    /**
-     * The site
-     *
-     * @var int
-     */
-    protected $site;
-
-    public function __construct(GenericDb $db, $site)
+    public function __construct(GenericDb $db)
     {
         $this->db = $db;
-        $this->site = $site;
 
         $sql = "SHOW COLUMNS FROM `{$this->tableName}`";
         $stmt = $this->db->execute($sql);
         while ($row = $stmt->fetch()) {
-            if ($row['Field'] == 'site_id') {
-                $this->storeSiteId = true;
-            }
-            else if ($row['Field'] == 'created') {
+            if ($row['Field'] == 'created') {
                 $this->createdStamp = true;
             }
             else if ($row['Field'] == 'modified') {
@@ -132,16 +114,6 @@ class AbstractStorage implements StorageInterface
                 $this->createdStamp = true;
             }
         }
-    }
-
-    /**
-     * Gets the site object
-     *
-     * @return Zend\Config $site
-     */
-    public function getSite()
-    {
-        return $this->site;
     }
 
     /**
@@ -214,9 +186,6 @@ class AbstractStorage implements StorageInterface
             $select->order($order);
         }
 
-        if ($this->storeSiteId) {
-            $select->where([ 'site_id' => $this->site->id ]);
-        }
         if ($this->recycledStamp) {
             $select->where([ 'recycled' => null ]);
         }
@@ -245,9 +214,6 @@ class AbstractStorage implements StorageInterface
             $select->where([ 'id' => $idOrWhere ]);
         }
 
-        if ($this->storeSiteId) {
-            $select->where([ 'site_id' => $this->site->id ]);
-        }
         if ($this->recycledStamp) {
             $select->where([ 'recycled' => null ]);
         }
@@ -271,9 +237,6 @@ class AbstractStorage implements StorageInterface
      */
     public function insert(array $values)
     {
-        if ($this->storeSiteId && !isset($values['site_id'])) {
-            $values['site_id'] = $this->site->id;
-        }
         if ($this->createdStamp && !isset($values['created'])) {
             $values['created'] = date('Y-m-d H:i:s');
             $values['created_by'] = 1;
@@ -339,9 +302,6 @@ class AbstractStorage implements StorageInterface
      */
     public function update(array $values, $idOrWhere = null)
     {
-        if ($this->storeSiteId && !isset($values['site_id'])) {
-            $values['site_id'] = $this->site->id;
-        }
         if ($this->modifiedStamp && !isset($values['modified'])) {
             $values['modified'] = date('Y-m-d H:i:s');
             $values['modified_by'] = 1;

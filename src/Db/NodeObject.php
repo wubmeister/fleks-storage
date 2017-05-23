@@ -12,7 +12,7 @@ namespace Fleks\Storage\Db;
 
 use Fleks\Storage\NodeInterface;
 
-class BranchedObject extends StorageObject implements NodeInterface
+class NodeObject extends StorageObject implements NodeInterface
 {
     /**
      * All the child nodes
@@ -27,6 +27,17 @@ class BranchedObject extends StorageObject implements NodeInterface
      * @param static $child
      */
     public function appendChild($child)
+    {
+        $this->children[] = $child;
+    }
+
+    /**
+     * Inserts a child node before the specified reference node
+     *
+     * @param static $child
+     * @param static $ref
+     */
+    public function insertBefore($child, $ref)
     {
         $this->children[] = $child;
     }

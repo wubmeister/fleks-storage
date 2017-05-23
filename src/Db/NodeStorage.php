@@ -70,7 +70,7 @@ class NodeStorage extends AbstractStorage
      */
     public function getTreeFromData($data)
     {
-        $root = $top = new BranchedObject($this);
+        $root = $top = new NodeObject($this);
         $right = -1;
         $topStack = [];
 
@@ -104,7 +104,7 @@ class NodeStorage extends AbstractStorage
      *   OPTIONAL. The ID of the root node. If no ID is given, the full tree
      *   from the table will be read.
      *
-     * @return BranchedObject
+     * @return NodeObject
      *   The root node with all of its children
      */
     public function fetchTree($id = null, $where = null)
@@ -118,7 +118,6 @@ class NodeStorage extends AbstractStorage
 
             $select
                 ->from([ 'parent' => $this->tableName, 'child' => $this->tableName ], 'child.*')
-                ->where([ 'child.site_id' => $this->site->id ])
                 ->where([ 'parent.id' => $id ])
                 ->where([ $childLeft => [ '$between' => [ $parentLeft, $parentRight ] ] ]);
 

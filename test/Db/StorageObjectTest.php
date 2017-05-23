@@ -2,8 +2,8 @@
 
 use PHPUnit\Framework\TestCase;
 
-use Fleks\Config;
-use Fleks\Container;
+use Fleks\Util\Config;
+use Fleks\Util\Container;
 use Fleks\Db\MySQL;
 use Fleks\Storage\Db\StorageObject;
 use Fleks\Storage\Db\Resultset;

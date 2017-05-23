@@ -2,14 +2,14 @@
 
 use PHPUnit\Framework\TestCase;
 
-use Fleks\Config;
-use Fleks\Container;
+use Fleks\Util\Config;
+use Fleks\Util\Container;
 use Fleks\Db\Generic;
 use Fleks\Db\MySQL;
-use Fleks\Storage\BranchedObject;
-use Fleks\Storage\Db\Branched;
+use Fleks\Storage\Db\NodeObject;
+use Fleks\Storage\Db\NodeStorage;
 
-class Storage_Db_Branched_TestStorage extends Branched
+class Storage_Db_NodeStorage_TestStorage extends NodeStorage
 {
     protected $tableName = 'nodes';
     protected $leftKey = 'left_bound';
@@ -17,7 +17,7 @@ class Storage_Db_Branched_TestStorage extends Branched
     // protected $objectClass = Storage_Db_Abstract_TestObject::class;
 }
 
-class BranchedTest extends \PHPUnit_Extensions_Database_TestCase
+class NodeStorageTest extends \PHPUnit_Extensions_Database_TestCase
 {
     private $sharedPdo;
     private $container;
@@ -30,8 +30,8 @@ class BranchedTest extends \PHPUnit_Extensions_Database_TestCase
                     Generic::class => function ($container, $name) {
                         return new MySQL([ 'dbname' => 'framewub_test' ], 'framewub', 'fr4m3wu8');
                     },
-                    Storage_Db_Branched_TestStorage::class => function ($container, $name) {
-                        $storage = new Storage_Db_Branched_TestStorage($container->get(Generic::class));
+                    Storage_Db_NodeStorage_TestStorage::class => function ($container, $name) {
+                        $storage = new Storage_Db_NodeStorage_TestStorage($container->get(Generic::class));
                         $storage->setContainer($container);
                         return $storage;
                     }
@@ -56,20 +56,20 @@ class BranchedTest extends \PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return $this->createFlatXMLDataSet(dirname(dirname(__DIR__)).'/data/branched-seed.xml');
+        return $this->createFlatXMLDataSet(dirname(__DIR__).'/data/nodes-seed.xml');
     }
 
     public function testObject()
     {
-        $storage = $this->container->get(Storage_Db_Branched_TestStorage::class);
+        $storage = $this->container->get(Storage_Db_NodeStorage_TestStorage::class);
 
         $obj = $storage->findOne(1);
-        $this->assertInstanceOf(BranchedObject::class, $obj);
+        $this->assertInstanceOf(NodeObject::class, $obj);
     }
 
     public function testFetchTree()
     {
-        $storage = $this->container->get(Storage_Db_Branched_TestStorage::class);
+        $storage = $this->container->get(Storage_Db_NodeStorage_TestStorage::class);
 
         $root = $storage->fetchTree(5);
         $this->assertEquals('Sub 3', $root->title);
@@ -81,7 +81,7 @@ class BranchedTest extends \PHPUnit_Extensions_Database_TestCase
 
     public function testFetchRootTree()
     {
-        $storage = $this->container->get(Storage_Db_Branched_TestStorage::class);
+        $storage = $this->container->get(Storage_Db_NodeStorage_TestStorage::class);
 
         $root = $storage->fetchTree();
         $this->assertEquals('Root', $root->title);
@@ -106,7 +106,7 @@ class BranchedTest extends \PHPUnit_Extensions_Database_TestCase
 
     public function testAppendNode()
     {
-        $storage = $this->container->get(Storage_Db_Branched_TestStorage::class);
+        $storage = $this->container->get(Storage_Db_NodeStorage_TestStorage::class);
 
         $id = $storage->insert([ 'title' => 'Sub 2.2' ]);
         $storage->appendNode($id, 2);

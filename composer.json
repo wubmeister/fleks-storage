@@ -12,7 +12,8 @@
     "autoload": {
         "psr-4" : {
             "Fleks\\Storage\\" : "src",
-            "Fleks\\Db\\" : "../fleks-db/src"
+            "Fleks\\Db\\" : "../fleks-db/src",
+            "Fleks\\Util\\" : "../fleks-util/src"
         }
     }
 }

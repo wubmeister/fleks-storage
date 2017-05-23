@@ -2,8 +2,8 @@
 
 use PHPUnit\Framework\TestCase;
 
-use Fleks\Config;
-use Fleks\Container;
+use Fleks\Util\Config;
+use Fleks\Util\Container;
 use Fleks\Db\Generic;
 use Fleks\Db\MySQL;
 use Fleks\Storage\StorageObject;
@@ -94,7 +94,7 @@ class Db_AbstractStorageTest extends \PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return $this->createFlatXMLDataSet(dirname(dirname(__DIR__)).'/data/related-seed.xml');
+        return $this->createFlatXMLDataSet(dirname(__DIR__).'/data/related-seed.xml');
     }
 
     public function testConstruct()

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+    <tests id="1" name="First test" created="2012-12-10 16:30:00" />
+    <tests id="2" name="Second test" created="2014-12-10 16:30:00" />
+    <tests id="3" name="Third test" created="2016-12-10 16:30:00" />
+
+    <users id="1" username="testuser" password="2dd4ca67f27c5da6fe2d1ce5bc105e90979fec8323b52e435cb324bbf29e3621" salt="m5N8E59b4yErDrgcDgdpFU8W6yJbIFFbnp/yKxahsP2d124aQBqWWFTxpHKp6ZbA" />
+
+    <!--
+    <testcases id="1" test_id="1" name="First test, first testcase" created="2012-12-10 16:30:00" />
+    <testcases id="2" test_id="1" name="First test, second testcase" created="2013-02-10 16:30:00" />
+    <testcases id="3" test_id="1" name="First test, third testcase" created="2013-04-10 16:30:00" />
+    <testcases id="4" test_id="2" name="Second test, first testcase" created="2015-06-10 16:30:00" />
+    <testcases id="5" test_id="2" name="Second test, second testcase" created="2015-08-10 16:30:00" />
+    <testcases id="6" test_id="2" name="Second test, third testcase" created="2015-10-10 16:30:00" />
+    <testcases id="7" test_id="3" name="Third test, first testcase" created="2017-12-10 16:30:00" />
+    <testcases id="8" test_id="3" name="Third test, second testcase" created="2018-02-10 16:30:00" />
+    <testcases id="9" test_id="3" name="Third test, third testcase" created="2018-04-10 16:30:00" />
+
+    <items id="1" name="First item" created="2016-06-10 12:00:00" />
+    <items id="2" name="Second item" created="2016-07-10 12:00:00" />
+    <items id="3" name="Third item" created="2016-08-10 12:00:00" />
+
+    <testcase_has_items testcase_id="1" item_id="1" />
+    <testcase_has_items testcase_id="2" item_id="1" />
+    <testcase_has_items testcase_id="2" item_id="2" />
+    <testcase_has_items testcase_id="3" item_id="2" />
+    <testcase_has_items testcase_id="3" item_id="3" />
+    <testcase_has_items testcase_id="4" item_id="1" />
+    <testcase_has_items testcase_id="4" item_id="3" />
+    <testcase_has_items testcase_id="5" item_id="2" />
+    <testcase_has_items testcase_id="5" item_id="3" />
+    <testcase_has_items testcase_id="6" item_id="3" />
+    <testcase_has_items testcase_id="7" item_id="3" />
+    <testcase_has_items testcase_id="8" item_id="2" />
+    <testcase_has_items testcase_id="9" item_id="1" />
+    <testcase_has_items testcase_id="9" item_id="2" />
+    <testcase_has_items testcase_id="9" item_id="3" />
+	-->
+</dataset>
